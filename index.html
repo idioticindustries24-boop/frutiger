@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frutiger Arcade — My Collection</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0096ff;--text:#1a3a5a;--text2:#5a8ab0;--shadow:0 20px 50px rgba(0,60,120,0.22), 0 2px 10px rgba(0,60,120,0.15)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Nunito','Segoe UI',sans-serif;color:var(--text);min-height:100vh;overflow-x:hidden;
+  background:#7dd8ff url('assets/background.jpg') no-repeat center top;
+  background-size:cover;background-attachment:fixed;
+  position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.25) 100%);
+}
+/* subtle vignette for readability */
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.25), transparent 60%);
+}
+
+/* Header */
+header{
+  position:relative;z-index:10;width:min(1240px, calc(100% - 28px));margin:16px auto 0;
+  background:linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(220,245,255,0.88) 100%);
+  border:1px solid rgba(255,255,255,0.95);border-radius:22px;box-shadow:var(--shadow), inset 0 1px 0 #fff;
+  padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(16px);flex-wrap:wrap;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;border-radius:13px;background:linear-gradient(180deg, #fff 0%, #a0e7ff 8%, #00a8ff 55%, #0066ff 100%);box-shadow:0 4px 12px rgba(0,102,255,0.3), inset 0 1px 0 rgba(255,255,255,0.9);display:grid;place-items:center;color:white;font-weight:800;font-size:20px;position:relative;overflow:hidden}
+.logo-icon::before{content:"";position:absolute;top:2px;left:3px;right:3px;height:11px;background:linear-gradient(180deg, rgba(255,255,255,0.9), transparent);border-radius:10px}
+.logo-text b{font-family:'Quicksand',sans-serif;font-weight:700;font-size:17px;background:linear-gradient(180deg, #1a3a5a, #0078ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-text span{display:block;font-size:10px;color:var(--text2);letter-spacing:0.12em;font-weight:700;margin-top:-2px}
+.header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.pill{background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(200,240,255,0.8));border:1px solid rgba(0,150,255,0.2);border-radius:999px;padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);box-shadow:0 2px 8px rgba(0,120,200,0.08), inset 0 1px 0 #fff;display:flex;align-items:center;gap:6px}
+.btn-aero{appearance:none;border:1px solid #0090ff;border-radius:999px;padding:8px 14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:11px;letter-spacing:0.05em;color:white;background:linear-gradient(180deg, #ffffff 0%, #a0e7ff 10%, #00b8ff 45%, #0078ff 100%);box-shadow:0 4px 14px rgba(0,120,255,0.3), inset 0 1px 0 rgba(255,255,255,0.9);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;text-shadow:0 1px 0 rgba(0,0,0,0.2);position:relative;overflow:hidden}
+.btn-aero::before{content:"";position:absolute;top:1px;left:4px;right:4px;height:9px;background:linear-gradient(180deg, rgba(255,255,255,0.9), transparent);border-radius:999px}
+.btn-aero:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,120,255,0.4), inset 0 1px 0 #fff}
+.btn-ghost{background:linear-gradient(180deg, #fff, #e6f9ff);border:1px solid rgba(0,150,255,0.2);color:var(--blue);text-shadow:none}
+.btn-ghost::before{display:none}
+.view-toggle{display:flex;background:rgba(255,255,255,0.7);border:1px solid rgba(0,150,255,0.15);border-radius:999px;padding:3px;gap:3px}
+.view-toggle button{padding:6px 12px;border-radius:999px;border:none;background:transparent;font-size:10px;font-weight:800;color:var(--text2);cursor:pointer;transition:all 0.2s}
+.view-toggle button.active{background:linear-gradient(180deg, #00c6ff, #0078ff);color:white;box-shadow:0 2px 8px rgba(0,120,255,0.3)}
+
+/* Main */
+main{position:relative;z-index:5;width:min(1240px, calc(100% - 28px));margin:18px auto 180px;display:grid;grid-template-columns:1fr;gap:16px}
+.panel{background:linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(230,249,255,0.88) 100%);border:1px solid rgba(255,255,255,0.95);border-radius:24px;box-shadow:var(--shadow), inset 0 1px 0 #fff;backdrop-filter:blur(16px);overflow:hidden;position:relative}
+.panel::before{content:"";position:absolute;top:0;left:12px;right:12px;height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)}
+.panel-head{padding:14px 18px 12px;border-bottom:1px solid rgba(0,150,255,0.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.panel-head h3{font-family:'Quicksand',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;color:var(--text);display:flex;align-items:center;gap:8px}
+.panel-head h3 i{width:20px;height:20px;border-radius:7px;background:linear-gradient(180deg, #a8ff78, #00c6ff);display:grid;place-items:center;font-size:11px;color:white;font-style:normal}
+.panel-body{padding:14px 16px}
+
+.search-wrap{position:relative;flex:1;min-width:160px}
+.search-wrap::before{content:"⌕";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text2);font-size:14px;z-index:1}
+.search{width:100%;background:linear-gradient(180deg, #fff, #f0fbff);border:1px solid rgba(0,150,255,0.18);border-radius:999px;padding:9px 12px 9px 32px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;color:var(--text);box-shadow:inset 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,120,200,0.06);outline:none}
+.filters{display:flex;gap:5px;flex-wrap:wrap}
+.filter-btn{padding:6px 10px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid rgba(0,150,255,0.15);background:linear-gradient(180deg, #fff, #e6f9ff);color:var(--text2);cursor:pointer;transition:all 0.2s}
+.filter-btn.active{background:linear-gradient(180deg, #00c6ff, #0078ff);color:white;border-color:#0078ff;box-shadow:0 4px 12px rgba(0,120,255,0.25)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(168px, 1fr));gap:12px}
+.empty{grid-column:1/-1;padding:40px 18px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.75), rgba(220,245,255,0.6));border:1px dashed rgba(0,150,255,0.2);border-radius:20px;backdrop-filter:blur(8px)}
+.empty b{font-family:'Quicksand',sans-serif;font-size:16px;display:block;margin-bottom:6px}
+.empty p{font-size:12px;color:var(--text2);line-height:1.6;max-width:460px;margin:0 auto}
+
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(220,245,255,0.92) 100%);border:1px solid rgba(255,255,255,0.96);border-radius:18px;overflow:hidden;box-shadow:0 8px 24px rgba(0,60,120,0.14), inset 0 1px 0 #fff;cursor:pointer;transition:all 0.25s;position:relative}
+.card:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 36px rgba(0,60,120,0.22), inset 0 1px 0 #fff}
+.card-top{height:112px;position:relative;overflow:hidden;display:grid;place-items:center}
+.card-top img.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.card-top::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.5), transparent 60%);z-index:1;pointer-events:none}
+.card-system{position:absolute;top:8px;left:8px;z-index:2;font-size:8px;font-weight:900;letter-spacing:0.08em;padding:3px 7px;border-radius:999px;background:rgba(255,255,255,0.9);border:1px solid rgba(255,255,255,0.9);box-shadow:0 2px 8px rgba(0,0,0,0.08);backdrop-filter:blur(6px)}
+.card-icon{font-family:'Quicksand',sans-serif;font-weight:800;font-size:24px;letter-spacing:-0.02em;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.25), 0 0 20px rgba(255,255,255,0.6);position:relative;z-index:1}
+.card-gloss{position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg, rgba(255,255,255,0.6), transparent);pointer-events:none;z-index:1}
+.card-body{padding:10px 10px 10px}
+.card-body h4{font-family:'Quicksand',sans-serif;font-size:12px;font-weight:700;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.card-body .meta{margin-top:3px;display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;color:var(--text2)}
+.card-actions{margin-top:8px;display:flex;gap:5px}
+.mini-btn{flex:1;padding:5px 6px;border-radius:999px;font-size:9px;font-weight:800;border:1px solid rgba(0,150,255,0.15);background:linear-gradient(180deg, #fff, #e6f9ff);color:var(--blue);cursor:pointer}
+
+/* Carousel */
+.carousel{position:relative;width:100%;height:420px;display:none;overflow:hidden;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,0.65), rgba(200,240,255,0.45));border:1px solid rgba(255,255,255,0.85);box-shadow:inset 0 1px 0 #fff;backdrop-filter:blur(10px)}
+.carousel.active{display:block}
+.carousel-track{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;perspective:1200px;transform-style:preserve-3d}
+.carousel-item{position:absolute;transition:all 0.6s cubic-bezier(0.23,1,0.32,1);cursor:pointer;transform-origin:center center}
+.carousel-item .card{width:200px;box-shadow:0 20px 50px rgba(0,0,0,0.2)}
+.carousel-item.center{z-index:10}
+.carousel-item.center .card{transform:scale(1.15);box-shadow:0 30px 80px rgba(0,60,120,0.35), 0 0 0 2px rgba(0,150,255,0.3)}
+.carousel-item.left{transform:translateX(-220px) scale(0.85) rotateY(25deg);opacity:0.75}
+.carousel-item.right{transform:translateX(220px) scale(0.85) rotateY(-25deg);opacity:0.75}
+.carousel-item.far-left{transform:translateX(-380px) scale(0.65) rotateY(35deg);opacity:0.35}
+.carousel-item.far-right{transform:translateX(380px) scale(0.65) rotateY(-35deg);opacity:0.35}
+.carousel-item.hidden{opacity:0;pointer-events:none;transform:translateX(0) scale(0.5)}
+.car-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.9);background:linear-gradient(180deg, #fff, #c9f0ff);box-shadow:0 8px 20px rgba(0,60,120,0.2);font-size:22px;display:grid;place-items:center;cursor:pointer;transition:all 0.2s}
+.car-nav:hover{transform:translateY(-50%) scale(1.1)}
+.car-nav.prev{left:12px}
+.car-nav.next{right:12px}
+.carousel-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:20}
+.carousel-dots span{width:8px;height:8px;border-radius:50%;background:rgba(0,150,255,0.2);transition:all 0.3s;cursor:pointer}
+.carousel-dots span.active{background:var(--blue);box-shadow:0 0 8px var(--blue);transform:scale(1.3)}
+
+/* Dudes - NO BOXES, living on grass */
+#dudes-layer{
+  position:fixed;left:0;right:0;bottom:0;height:200px;z-index:6;pointer-events:none;
+}
+.dude-free{
+  position:absolute;bottom:20px;width:84px;height:84px;pointer-events:auto;cursor:pointer;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,0.25)) drop-shadow(0 0 12px rgba(255,255,255,0.6));
+  transition:transform 0.1s linear;user-select:none;
+  will-change:transform, left, bottom;
+}
+.dude-free img{width:100%;height:100%;object-fit:contain;display:block}
+.dude-free::after{
+  content:"";position:absolute;top:6%;left:12%;width:38%;height:28%;
+  background:radial-gradient(ellipse at center, rgba(255,255,255,0.85), transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.dude-shadow{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  width:50px;height:12px;background:radial-gradient(ellipse, rgba(0,0,0,0.25), transparent 70%);
+  border-radius:50%;pointer-events:none;
+}
+.speech{
+  position:absolute;left:50%;bottom:110%;transform:translateX(-50%);
+  background:linear-gradient(180deg, #fff 0%, #f0fbff 100%);
+  border:1px solid rgba(0,150,255,0.25);border-radius:14px;padding:6px 10px;
+  font-size:11px;font-weight:800;white-space:nowrap;box-shadow:0 8px 20px rgba(0,60,120,0.18);
+  z-index:10;pointer-events:none;animation:pop 0.35s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+.speech::after{
+  content:"";position:absolute;bottom:-6px;left:50%;width:10px;height:10px;background:#fff;
+  border-right:1px solid rgba(0,150,255,0.25);border-bottom:1px solid rgba(0,150,255,0.25);
+  transform:translateX(-50%) rotate(45deg);
+}
+@keyframes pop{from{transform:translateX(-50%) scale(0.5) translateY(10px);opacity:0}to{transform:translateX(-50%) scale(1) translateY(0);opacity:1}}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(160,220,255,0.45);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal-box{width:min(980px, 100%);max-height:92vh;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(220,245,255,0.94) 100%);border:1px solid rgba(255,255,255,0.95);border-radius:26px;box-shadow:0 30px 80px rgba(0,80,160,0.25), inset 0 1px 0 #fff;display:flex;flex-direction:column}
+.modal-head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(0,150,255,0.1);background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(230,249,255,0.7))}
+.modal-head h3{font-family:'Quicksand',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.player-wrap{background:#000;position:relative;aspect-ratio:4/3;overflow:hidden}
+#game{width:100%;height:100%;min-height:500px;background:#000}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">◍</div>
+    <div class="logo-text"><b>Frutiger Arcade</b><span>MY COLLECTION • GITHUB.IO EDITION</span></div>
+  </div>
+  <div class="header-actions">
+    <div class="pill">◍ <span id="countPill">0 games</span> • <span id="modePill">GitHub Pages</span></div>
+    <div class="view-toggle" id="viewToggle">
+      <button class="active" data-view="grid">⊞ Grid</button>
+      <button data-view="carousel">◍ Carousel</button>
+    </div>
+    <button class="btn-aero btn-ghost" id="howBtn">? How to add games</button>
+  </div>
+</header>
+
+<main>
+  <div class="panel">
+    <div class="panel-head">
+      <h3><i>◎</i> MY LIBRARY — SAVED IN /roms/</h3>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <div class="search-wrap"><input class="search" id="search" placeholder="Search collection..."></div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="filters" id="filters" style="margin-bottom:12px">
+        <button class="filter-btn active" data-f="all">All</button>
+        <button class="filter-btn" data-f="nes">NES</button>
+        <button class="filter-btn" data-f="snes">SNES</button>
+        <button class="filter-btn" data-f="gba">GBA</button>
+        <button class="filter-btn" data-f="gb">GB/GBC</button>
+        <button class="filter-btn" data-f="gen">Genesis</button>
+        <button class="filter-btn" data-f="n64">N64</button>
+        <button class="filter-btn" data-f="nds">NDS</button>
+      </div>
+
+      <div class="grid" id="grid"></div>
+
+      <div class="carousel" id="carousel">
+        <button class="car-nav prev" id="carPrev">‹</button>
+        <div class="carousel-track" id="carouselTrack"></div>
+        <button class="car-nav next" id="carNext">›</button>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+
+      <div id="howPanel" style="display:none;margin-top:16px;background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(200,240,255,0.6));border:1px solid rgba(255,255,255,0.9);border-radius:16px;padding:14px;font-size:12px;line-height:1.7;color:var(--text2)">
+        <b style="color:var(--text);font-family:'Quicksand',sans-serif;font-size:13px">How to add games so they stay saved (GitHub Pages):</b><br><br>
+        1. Dump your own cartridge you own (GBxCart, Retrode, etc.)<br>
+        2. Put ROM file in <code>/roms/</code> folder — e.g. <code>roms/My Game.gba</code><br>
+        3. (Optional) Put cover in <code>/roms/covers/</code> — e.g. <code>roms/covers/My Game.jpg</code><br>
+        4. Edit <code>/roms/manifest.json</code> and add entry:<br>
+        <code style="display:block;background:rgba(0,0,0,0.06);padding:8px;border-radius:8px;margin:8px 0;white-space:pre-wrap;font-size:11px">{
+  "id": "my-game",
+  "name": "My Game",
+  "file": "roms/My Game.gba",
+  "cover": "roms/covers/My Game.jpg",
+  "ext": "gba",
+  "core": "gba",
+  "size": 16777216,
+  "added": 1725060000000
+}</code>
+        5. <code>git add roms/ && git commit -m "add game" && git push</code><br>
+        Your .io site rebuilds and game appears. No server needed — everything is static files in the repo.
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Dudes layer - NO BOXES -->
+<div id="dudes-layer"></div>
+
+<!-- Player Modal -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">◍ Now Playing</h3>
+      <div style="display:flex;gap:8px"><button class="btn-aero btn-ghost" id="fsBtn">⛶ Fullscreen</button><button class="btn-aero" id="closeBtn">✕ Close</button></div>
+    </div>
+    <div class="player-wrap"><div id="game"></div></div>
+    <div style="padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+      <div id="modalMeta" style="font-size:10px;color:var(--text2);font-weight:700"></div>
+      <div style="font-size:9px;color:var(--text2)">Save states: browser • ESC to exit</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const extToCore={nes:'nes', smc:'snes', sfc:'snes', snes:'snes', gba:'gba', gb:'gb', gbc:'gbc', gen:'segaMD', md:'segaMD', bin:'segaMD', n64:'n64', z64:'n64', nds:'nds'};
+const coreToColor={nes:{bg:'linear-gradient(180deg, #ff7a7a, #ff3b3b)', color:'#ff2a2a', label:'NES'}, snes:{bg:'linear-gradient(180deg, #a78bff, #6a3bff)', color:'#6a3bff', label:'SNES'}, gba:{bg:'linear-gradient(180deg, #7fe8ff, #0096ff)', color:'#0096ff', label:'GBA'}, gb:{bg:'linear-gradient(180deg, #b0ffb0, #2ecc71)', color:'#2ecc71', label:'GB'}, gbc:{bg:'linear-gradient(180deg, #ffe08a, #ff9a00)', color:'#ff9a00', label:'GBC'}, segaMD:{bg:'linear-gradient(180deg, #7a7aff, #2a2aff)', color:'#2a2aff', label:'GEN'}, n64:{bg:'linear-gradient(180deg, #ff8ad8, #ff00a0)', color:'#ff00a0', label:'N64'}, nds:{bg:'linear-gradient(180deg, #a8ff78, #00c853)', color:'#00c853', label:'NDS'}};
+
+let roms=[]; let filter='all'; let query=''; let viewMode='grid'; let carouselIndex=0;
+const autoCoverCache=new Map();
+
+function generateAutoCoverDataURL(name, core){
+  const key=name+'|'+core;
+  if(autoCoverCache.has(key)) return autoCoverCache.get(key);
+  const W=400, H=560;
+  const canvas=document.createElement('canvas'); canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const col=coreToColor[core]||{color:'#0096ff', label:core.toUpperCase()};
+  const baseColors={
+    nes:['#ff9a9a','#ff3b3b'], snes:['#b8a6ff','#6a3bff'], gba:['#a0e7ff','#0078ff'],
+    gb:['#c8ffc8','#2ecc71'], gbc:['#ffe6a0','#ff9a00'], segaMD:['#a0a0ff','#2a2aff'],
+    n64:['#ffb0e0','#ff00a0'], nds:['#c8ffb0','#00c853']
+  };
+  const [c1,c2]=baseColors[core]||['#a0e7ff','#0078ff'];
+  const grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,c1); grad.addColorStop(1,c2);
+  ctx.fillStyle=grad; ctx.fillRect(0,0,W,H);
+  // soft light
+  const vign=ctx.createRadialGradient(W/2,H*0.3, W*0.1, W/2,H*0.3, W);
+  vign.addColorStop(0,'rgba(255,255,255,0.55)'); vign.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=vign; ctx.fillRect(0,0,W,H);
+  // bubbles - frutiger aero style
+  for(let i=0;i<7;i++){
+    const x=Math.random()*W*0.8+W*0.1, y=Math.random()*H*0.55+H*0.05, r=18+Math.random()*48;
+    const bg=ctx.createRadialGradient(x-r*0.25,y-r*0.3,r*0.2,x,y,r);
+    bg.addColorStop(0,'rgba(255,255,255,0.95)'); bg.addColorStop(0.25,'rgba(255,255,255,0.6)'); bg.addColorStop(0.6,'rgba(255,255,255,0.2)'); bg.addColorStop(1,'rgba(255,255,255,0.05)');
+    ctx.fillStyle=bg; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.2; ctx.stroke();
+    // highlight
+    ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.beginPath(); ctx.ellipse(x-r*0.25,y-r*0.28,r*0.28,r*0.18,-0.4,0,Math.PI*2); ctx.fill();
+  }
+  // water splash shape (like background)
+  ctx.fillStyle='rgba(255,255,255,0.35)'; ctx.beginPath();
+  ctx.moveTo(-20,H*0.45); ctx.bezierCurveTo(W*0.2,H*0.35,W*0.4,H*0.55,W*0.8,H*0.42); ctx.lineTo(W*0.8,H*0.52); ctx.bezierCurveTo(W*0.4,H*0.65,W*0.2,H*0.45,-20,H*0.55); ctx.closePath(); ctx.fill();
+  // grass
+  const grassGrad=ctx.createLinearGradient(0,H-90,0,H);
+  grassGrad.addColorStop(0,'#b8ff9a'); grassGrad.addColorStop(1,'#4caf50');
+  ctx.fillStyle=grassGrad; ctx.fillRect(0,H-90,W,90);
+  ctx.strokeStyle='rgba(255,255,255,0.35)'; ctx.lineWidth=1;
+  for(let i=0;i<50;i++){ const gx=i*8+Math.random()*4; ctx.beginPath(); ctx.moveTo(gx,H-90); ctx.lineTo(gx+Math.random()*6-3,H-90-Math.random()*22); ctx.stroke(); }
+  // daisies
+  for(let i=0;i<3;i++){
+    const dx=50+i*130+Math.random()*20, dy=H-28-Math.random()*12;
+    ctx.fillStyle='white';
+    for(let p=0;p<5;p++){ const ang=p*Math.PI*2/5; const px=dx+Math.cos(ang)*10, py=dy+Math.sin(ang)*6; ctx.beginPath(); ctx.ellipse(px,py,9,5.5,ang,0,Math.PI*2); ctx.fill(); }
+    ctx.fillStyle='#ffcc00'; ctx.beginPath(); ctx.arc(dx,dy,7,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle='#ff9900'; ctx.beginPath(); ctx.arc(dx+1,dy+1,2.5,0,Math.PI*2); ctx.fill();
+  }
+  // title with wrap
+  ctx.fillStyle='white'; ctx.shadowColor='rgba(0,0,0,0.28)'; ctx.shadowBlur=14; ctx.shadowOffsetY=5;
+  ctx.font='800 30px Quicksand, Nunito, sans-serif'; ctx.textAlign='center';
+  const words=name.split(' '); let lines=[]; let cur='';
+  for(const w of words){ const test=cur?cur+' '+w:w; if(ctx.measureText(test).width> W-50 && cur){ lines.push(cur); cur=w; } else cur=test; } if(cur) lines.push(cur);
+  if(lines.length>3){ lines=lines.slice(0,3); lines[2]=lines[2].slice(0,18)+'...'; }
+  const startY=H/2 - (lines.length-1)*22;
+  lines.forEach((line,i)=>{ ctx.fillText(line.toUpperCase(), W/2, startY+i*38); });
+  ctx.shadowBlur=0; ctx.shadowOffsetY=0;
+  // system badge
+  ctx.fillStyle='rgba(255,255,255,0.94)'; 
+  if(ctx.roundRect){ ctx.beginPath(); ctx.roundRect(14,14,86,28,14); ctx.fill(); } else { ctx.fillRect(14,14,86,28); }
+  ctx.fillStyle=col.color||'#0096ff'; ctx.font='900 12px Nunito'; ctx.textAlign='left'; ctx.fillText((col.label||core.toUpperCase())+' • AUTO', 24, 32);
+  // top gloss
+  const gloss=ctx.createLinearGradient(0,0,0,H*0.5); gloss.addColorStop(0,'rgba(255,255,255,0.65)'); gloss.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=gloss; ctx.fillRect(0,0,W,H*0.5);
+  const data=canvas.toDataURL('image/png');
+  autoCoverCache.set(key,data);
+  return data;
+}
+
+function formatSize(b){if(!b) return ''; if(b<1024*1024) return (b/1024).toFixed(1)+' KB'; return (b/1024/1024).toFixed(2)+' MB'}
+
+async function loadManifest(){
+  try{
+    const res=await fetch('roms/manifest.json?'+Date.now());
+    if(!res.ok) throw new Error('No manifest');
+    const data=await res.json();
+    roms=data.filter(r=>r.file && !r.file.includes('example-placeholder')).map(r=>{
+      // normalize
+      const ext=(r.ext || r.file.split('.').pop()).toLowerCase();
+      return {...r, ext, core:r.core || extToCore[ext] || 'nes'};
+    });
+  }catch(e){
+    console.warn('manifest load failed', e);
+    roms=[];
+  }
+  document.getElementById('countPill').textContent=`${roms.length} games`;
+  render();
+}
+
+function getFiltered(){
+  let list=[...roms];
+  if(filter!=='all'){
+    list=list.filter(r=>{
+      if(filter==='gb') return r.core==='gb' || r.core==='gbc';
+      if(filter==='gen') return r.core==='segaMD';
+      return r.core===filter || r.ext===filter;
+    });
+  }
+  if(query){const q=query.toLowerCase(); list=list.filter(r=>r.name.toLowerCase().includes(q))}
+  list.sort((a,b)=>(b.added||0)-(a.added||0));
+  return list;
+}
+
+function render(){
+  const list=getFiltered();
+  renderGrid(list);
+  renderCarousel(list);
+}
+
+function renderGrid(list){
+  const grid=document.getElementById('grid');
+  grid.style.display= viewMode==='grid' ? 'grid' : 'none';
+  if(viewMode!=='grid') return;
+  grid.innerHTML='';
+  if(!list.length){
+    grid.innerHTML=`<div class="empty">
+      <div style="width:64px;height:64px;margin:0 auto 12px;border-radius:18px;background:linear-gradient(180deg,#fff,#a0e7ff);display:grid;place-items:center;font-size:28px;box-shadow:0 8px 20px rgba(0,120,200,0.2)">◍</div>
+      <b>No games yet — add them to /roms/</b>
+      <p>Put your own dumped ROMs in the <code>roms/</code> folder, add an entry to <code>roms/manifest.json</code>, then push to GitHub. They will be saved in the repo files and appear here on your .io site.<br><br>
+      <button class="btn-aero btn-ghost" onclick="document.getElementById('howPanel').style.display='block'">? How to add games</button></p>
+    </div>`;
+    return;
+  }
+  list.forEach(r=>{
+    const col=coreToColor[r.core]||{bg:'linear-gradient(180deg, #a0e7ff, #0096ff)', color:'#0096ff', label:r.ext.toUpperCase()};
+    const autoCover = !r.cover ? generateAutoCoverDataURL(r.name, r.core) : null;
+    const displayCover = r.cover || autoCover;
+    const isAuto = !r.cover;
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <div class="card-top" style="background:${col.bg}">
+        <img class="cover" src="${displayCover}" alt="" loading="lazy" onerror="this.style.display='none'">
+        <div class="card-system" style="color:${col.color}">${col.label} • ${isAuto?'AUTO':'CUSTOM'}</div>
+        <div class="card-gloss"></div>
+      </div>
+      <div class="card-body">
+        <h4 title="${r.name}">${r.name}</h4>
+        <div class="meta"><span>${r.size?formatSize(r.size):''}</span><span>${isAuto?'✦ AUTO COVER':'● IN REPO'}</span></div>
+        <div class="card-actions"><button class="mini-btn play">▶ PLAY</button></div>
+      </div>
+    `;
+    card.querySelector('.play').onclick=(e)=>{e.stopPropagation(); launch(r)};
+    card.onclick=()=>launch(r);
+    grid.appendChild(card);
+  });
+}
+
+function renderCarousel(list){
+  const car=document.getElementById('carousel'); const track=document.getElementById('carouselTrack'); const dots=document.getElementById('carouselDots');
+  car.classList.toggle('active', viewMode==='carousel');
+  if(viewMode!=='carousel') return;
+  track.innerHTML=''; dots.innerHTML='';
+  if(!list.length){track.innerHTML=`<div style="color:var(--text2);font-weight:700">Add ROMs to /roms/ to see carousel</div>`; return}
+  if(carouselIndex>=list.length) carouselIndex=list.length-1;
+  if(carouselIndex<0) carouselIndex=0;
+  list.forEach((r,i)=>{
+    const col=coreToColor[r.core]||{bg:'linear-gradient(180deg, #a0e7ff, #0096ff)', color:'#0096ff', label:r.ext.toUpperCase()};
+    const autoCover = !r.cover ? generateAutoCoverDataURL(r.name, r.core) : null;
+    const displayCover = r.cover || autoCover;
+    const item=document.createElement('div'); const diff=i-carouselIndex;
+    let cls='carousel-item hidden';
+    if(diff===0) cls='carousel-item center'; else if(diff===-1) cls='carousel-item left'; else if(diff===1) cls='carousel-item right'; else if(diff===-2) cls='carousel-item far-left'; else if(diff===2) cls='carousel-item far-right';
+    item.className=cls;
+    item.innerHTML=`
+      <div class="card" style="width:200px">
+        <div class="card-top" style="background:${col.bg};height:140px">
+          <img class="cover" src="${displayCover}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+          <div class="card-system" style="color:${col.color}">${col.label}</div>
+          <div class="card-gloss"></div>
+        </div>
+        <div class="card-body"><h4>${r.name.slice(0,22)}</h4><div class="meta"><span>${r.ext.toUpperCase()}</span><span>▶ PLAY</span></div></div>
+      </div>
+    `;
+    item.onclick=()=>{if(diff===0) launch(r); else {carouselIndex=i; renderCarousel(list)}};
+    track.appendChild(item);
+    const dot=document.createElement('span'); dot.className= i===carouselIndex ? 'active' : ''; dot.onclick=()=>{carouselIndex=i; renderCarousel(list)}; dots.appendChild(dot);
+  });
+}
+
+// View toggle
+document.getElementById('viewToggle').addEventListener('click',e=>{
+  if(!e.target.dataset.view) return;
+  viewMode=e.target.dataset.view;
+  document.querySelectorAll('#viewToggle button').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  render();
+});
+document.getElementById('carPrev').onclick=()=>{carouselIndex=Math.max(0, carouselIndex-1); renderCarousel(getFiltered())};
+document.getElementById('carNext').onclick=()=>{const l=getFiltered().length; carouselIndex=Math.min(l-1, carouselIndex+1); renderCarousel(getFiltered())};
+document.getElementById('filters').addEventListener('click',e=>{if(!e.target.classList.contains('filter-btn')) return; document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active')); e.target.classList.add('active'); filter=e.target.dataset.f; carouselIndex=0; render()});
+document.getElementById('search').addEventListener('input',e=>{query=e.target.value; carouselIndex=0; render()});
+document.getElementById('howBtn').onclick=()=>{const p=document.getElementById('howPanel'); p.style.display= p.style.display==='none' ? 'block' : 'none'};
+
+// Player
+const modal=document.getElementById('modal'); const gameDiv=document.getElementById('game'); let currentBlobUrl=null;
+async function launch(rom){
+  document.getElementById('modalTitle').textContent=`◍ ${rom.name} — ${rom.core.toUpperCase()}`;
+  document.getElementById('modalMeta').textContent=`${rom.file} • ${rom.core} • Saved in repo`;
+  modal.classList.add('open'); gameDiv.innerHTML='';
+  if(currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+  try{
+    const res=await fetch(rom.file); if(!res.ok) throw new Error('ROM not found: '+rom.file);
+    const blob=await res.blob();
+    currentBlobUrl=URL.createObjectURL(blob);
+    window.EJS_player='#game'; window.EJS_core=rom.core; window.EJS_gameUrl=currentBlobUrl;
+    window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/'; window.EJS_startOnLoaded=true;
+    window.EJS_defaultOptions={'save-state-location':'browser'};
+    const old=document.getElementById('ejs-loader'); if(old) old.remove();
+    const script=document.createElement('script'); script.id='ejs-loader'; script.src='https://cdn.emulatorjs.org/stable/data/loader.js';
+    gameDiv.appendChild(script);
+  }catch(err){alert('Failed to load ROM: '+err.message+'\n\nMake sure the file exists in /roms/ and manifest.json path is correct.'); closeModal()}
+}
+function closeModal(){modal.classList.remove('open'); gameDiv.innerHTML=''; if(currentBlobUrl){URL.revokeObjectURL(currentBlobUrl); currentBlobUrl=null}}
+document.getElementById('closeBtn').onclick=closeModal;
+modal.addEventListener('click',e=>{if(e.target===modal) closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal()});
+document.getElementById('fsBtn').onclick=()=>{const el=document.querySelector('.player-wrap'); if(document.fullscreenElement) document.exitFullscreen(); else el.requestFullscreen()};
+
+// Dudes - NO BOXES, free living
+function initDudes(){
+  const layer=document.getElementById('dudes-layer');
+  const dudeData=[
+    {src:'assets/dude-purple.png', x:15, color:'#8a5cff'},
+    {src:'assets/dude-blue.png', x:45, color:'#00a8ff'},
+    {src:'assets/dude-green.png', x:75, color:'#4caf50'}
+  ];
+  const dudes=[];
+  dudeData.forEach((d,i)=>{
+    const wrap=document.createElement('div'); wrap.className='dude-free'; wrap.style.left=d.x+'%';
+    wrap.innerHTML=`<div class="dude-shadow"></div><img src="${d.src}" alt="dude ${i+1}" draggable="false">`;
+    layer.appendChild(wrap);
+    dudes.push({el:wrap, x:d.x, y:0, vx:(Math.random()-0.5)*0.6, vy:0, jumping:false, id:i});
+  });
+
+  const phrases=[
+    ["hey!!", "yo!", "sup dude", "hehe"],
+    ["new game?", "let's play!", "whoa!!", "nice!"],
+    ["brb", "lag lol", "100%!", "gg"],
+    ["◍", "◎", "✦", "☁"],
+    ["grass is soft", "bubble pop!", "plane!!", "daisy!"]
+  ];
+
+  function jump(dude){if(dude.jumping) return; dude.jumping=true; dude.vy=7+Math.random()*4}
+  function say(dude, text){
+    const old=dude.el.querySelector('.speech'); if(old) old.remove();
+    const s=document.createElement('div'); s.className='speech'; s.textContent=text;
+    dude.el.appendChild(s); setTimeout(()=>s.remove(), 2400);
+  }
+
+  setInterval(()=>{
+    dudes.forEach(d=>{
+      d.x+=d.vx;
+      if(d.x<2 || d.x>88){d.vx*=-1; d.x=Math.max(2, Math.min(88, d.x))}
+      if(!d.jumping && Math.random()<0.015) jump(d);
+      if(d.jumping){
+        d.y+=d.vy; d.vy-=0.55;
+        if(d.y<=0){d.y=0; d.jumping=false; d.vy=0; d.vx+=(Math.random()-0.5)*0.3; d.vx=Math.max(-1.2, Math.min(1.2, d.vx))}
+      }
+      d.el.style.left=d.x+'%';
+      d.el.style.bottom=(18+d.y)+'px';
+      const scale=d.jumping?1.08:1;
+      const squish=d.jumping? (d.vy>0?0.95:1.05) : 1;
+      d.el.style.transform=`scale(${scale}) scaleY(${squish}) rotate(${d.vx*4}deg)`;
+      d.el.querySelector('.dude-shadow').style.transform=`translateX(-50%) scale(${1 - d.y*0.012})`;
+      d.el.querySelector('.dude-shadow').style.opacity=0.25 - d.y*0.008;
+    });
+  },16);
+
+  setInterval(()=>{
+    const a=dudes[Math.floor(Math.random()*3)];
+    const b=dudes.filter(d=>d!==a)[Math.floor(Math.random()*2)];
+    const group=phrases[Math.floor(Math.random()*phrases.length)];
+    say(a, group[Math.floor(Math.random()*group.length)]);
+    if(Math.random()<0.65) setTimeout(()=>say(b, group[Math.floor(Math.random()*group.length)]), 500+Math.random()*600);
+    if(Math.random()<0.4){jump(a); if(Math.random()<0.7) setTimeout(()=>jump(b), 180)}
+  }, 2600);
+
+  // click to make them jump + talk
+  dudes.forEach(d=>{
+    d.el.addEventListener('click',()=>{
+      jump(d);
+      say(d, phrases[Math.floor(Math.random()*phrases.length)][0]);
+      d.vx=(Math.random()-0.5)*2;
+    });
+  });
+}
+
+loadManifest();
+initDudes();
+</script>
+</body>
+</html>
