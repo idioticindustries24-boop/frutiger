@@ -1,8 +1,8 @@
 [
   {
-    "id": "super-mario-bros",
-    "name": "Classic NES Series - Super Mario Bros. (USA, Europe)",
-    "file": "roms/Classic NES Series - Super Mario Bros. (USA, Europe).gba",
+    "id": "smb",
+    "name": "Super Mario Bros",
+    "file": "roms/smb.gba",
     "cover": null,
     "ext": "gba",
     "core": "gba"
