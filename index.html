@@ -440,19 +440,53 @@ const modal=document.getElementById('modal'); const gameDiv=document.getElementB
 async function launch(rom){
   document.getElementById('modalTitle').textContent=`◍ ${rom.name} — ${rom.core.toUpperCase()}`;
   document.getElementById('modalMeta').textContent=`${rom.file} • ${rom.core} • Saved in repo`;
-  modal.classList.add('open'); gameDiv.innerHTML='';
+  modal.classList.add('open'); 
+  gameDiv.innerHTML='<div style="display:grid;place-items:center;height:100%;color:#5a8ab0;font-family:Quicksand,sans-serif;font-weight:700;padding:40px;text-align:center">◍ Loading ROM...<br><small style="font-size:11px;margin-top:8px;display:block">Fetching '+rom.file+'</small></div>';
   if(currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
   try{
-    const res=await fetch(rom.file); if(!res.ok) throw new Error('ROM not found: '+rom.file);
-    const blob=await res.blob();
-    currentBlobUrl=URL.createObjectURL(blob);
-    window.EJS_player='#game'; window.EJS_core=rom.core; window.EJS_gameUrl=currentBlobUrl;
-    window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/'; window.EJS_startOnLoaded=true;
+    // encode spaces/parens for GitHub Pages - use direct URL for EmulatorJS (more reliable)
+    const url = encodeURI(rom.file);
+    console.log('Testing ROM URL:', url);
+    try {
+      const head = await fetch(url, {method:'HEAD'});
+      console.log('HEAD status:', head.status, head.headers.get('content-type'), head.headers.get('content-length'));
+      if(!head.ok) throw new Error('ROM not found (HTTP '+head.status+'): '+rom.file+'\nCheck file exists in roms/ with exact name (GitHub is case-sensitive)');
+      const len = head.headers.get('content-length');
+      if(len && parseInt(len) < 100) throw new Error('ROM file is too small ('+len+' bytes) — you probably created it via "Create new file" instead of "Upload files"');
+    } catch(e) {
+      console.warn('HEAD check failed, will try direct load anyway:', e);
+    }
+
+    gameDiv.innerHTML='';
+    window.EJS_player='#game'; 
+    window.EJS_core=rom.core; 
+    window.EJS_gameUrl=url; // direct URL - EmulatorJS fetches it itself
+    window.EJS_pathtodata='https://cdn.emulatorjs.org/stable/data/'; 
+    window.EJS_startOnLoaded=true;
     window.EJS_defaultOptions={'save-state-location':'browser'};
+    window.EJS_gameName=rom.name;
+    window.EJS_biosUrl='';
+    window.EJS_DEBUG_XX=true;
+
     const old=document.getElementById('ejs-loader'); if(old) old.remove();
-    const script=document.createElement('script'); script.id='ejs-loader'; script.src='https://cdn.emulatorjs.org/stable/data/loader.js';
+    const script=document.createElement('script'); 
+    script.id='ejs-loader'; 
+    script.src='https://cdn.emulatorjs.org/stable/data/loader.js';
+    script.onerror=()=>{ 
+      gameDiv.innerHTML=`<div style="padding:30px;color:#ff3b5c">EmulatorJS CDN failed to load. Check internet / adblocker blocking cdn.emulatorjs.org<br><br>Try disabling adblock for your .io site.</div>`;
+    };
     gameDiv.appendChild(script);
-  }catch(err){alert('Failed to load ROM: '+err.message+'\n\nMake sure the file exists in /roms/ and manifest.json path is correct.'); closeModal()}
+
+    setTimeout(()=>{
+      const hasCanvas = gameDiv.querySelector('canvas');
+      if(!hasCanvas){
+        console.warn('No canvas after 8s - ROM may be bad dump or core mismatch. Try renaming to smb.gba without spaces.');
+      }
+    }, 8000);
+  }catch(err){
+    console.error(err);
+    gameDiv.innerHTML=`<div style="padding:30px;color:#ff3b5c;font-family:Nunito,sans-serif;font-size:13px;line-height:1.6"><b>Failed to load ROM</b><br><br>${err.message.replace(/\n/g,'<br>')}<br><br><small style="color:#5a8ab0">Open F12 → Console for details.<br>Common fixes:<br>1. Make sure you uploaded via <b>Add file → Upload files</b> (not Create new file)<br>2. File name must match exactly including spaces/caps<br>3. Try renaming ROM to simple name like <code>smb.gba</code> without spaces<br>4. If testing locally by double-clicking index.html, it won't work — must be on GitHub Pages https://</small></div>`;
+  }
 }
 function closeModal(){modal.classList.remove('open'); gameDiv.innerHTML=''; if(currentBlobUrl){URL.revokeObjectURL(currentBlobUrl); currentBlobUrl=null}}
 document.getElementById('closeBtn').onclick=closeModal;
